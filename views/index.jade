@@ -1,0 +1,13 @@
+extend layout
+block page 
+   img.main-logo(src="img/TreyVee_Logo@2x.png")
+   h3.three-v-line VALIDITY | VALUE | VICTORY
+   h2.coming-line Coming Spring 2015
+   p FOR NEWS & UPDATES 
+   form#email-form(name="emailForm", onsubmit="return validateForm();", action="", method="")
+      .field-wrapper
+         input#email-field(type="email", placeholder="ENTER EMAIL ADDRESS", name="emailField", onfocus="emailFocus()" onblur="emailOff()")
+         #status-circle
+   p#email-status
+   img.left-crystal(src="img/LeftCornerCrystal.png")
+   img.right-crystal(src="img/RightCornerCrystal.png")
