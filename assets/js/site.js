@@ -1,45 +1,62 @@
-var emailSuccess = false;
+var emailSuccees = false;
 
 function validateForm() {
-    var x = document.forms["emailForm"]["emailField"].value;
-    var atpos = x.indexOf("@");
-    var dotpos = x.lastIndexOf(".");
-    if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
-        // alert("Not a valid e-mail address");
-        $('#status-circle').css('backgroundImage', "url(/img/Error_btn@2x.png)");
-        $('#email-status').css('color', "#FF5A7A");
-        $('#email-status').html("PLEASE ENTER A VALID EMAIL ADDRESS");
-        $('#email-field').css('borderColor', "#FF5A7A");
-        emailSuccess = false;
-        return false;
-    } else {
-      $('#status-circle').css('backgroundImage', "url(/img/Success_btn@2x.png)");
-      $('#email-status').css('color', "#34D290");
-      $('#email-status').html("THANK YOU FOR CONNECTING WITH US!");
-      $('#email-field').css('borderColor', "#34D290");
-      emailSuccess = true;
+  console.log("validateForm fired");
+  var x = document.forms["emailForm"]["emailField"].value;
+  var atpos = x.indexOf("@");
+  var dotpos = x.lastIndexOf(".");
+  if (atpos< 1 || dotpos<atpos+2 || dotpos+2>=x.length) {
+    emailSuccees = false;
+      // $('#status-circle').css('backgroundImage', "url(/img/Error_btn@2x.png)");
+      $('#status-circle').toggleClass('status-circle-error');
+      // $('#status-circle').animate({opacity: 1}, 1);
+      $('#email-status').css('color', "#FF5A7A");
+      $('#email-status').html("PLEASE ENTER A VALID EMAIL ADDRESS");
+      $('#email-field').toggleClass('field-error');
       return false;
-    }
+  } else {
+    emailSuccees = true;
+    // $('#status-circle').css('backgroundImage', "url(/img/Success_btn@2x.png)");
+    $('#status-circle').toggleClass('status-circle-success');
+    // $('#status-circle').animate({opacity: 1}, 1);
+    $('#email-status').css('color', "#34D290");
+    $('#email-status').html("THANK YOU FOR CONNECTING WITH US!");
+    $('#email-field').toggleClass('field-success');
+    emailFinished();
+    return false;
+  }
 }
 
 function emailFocus(){
    $('#status-circle').animate({opacity: 1}, 200);
-   $('#email-field').css('borderColor', "#56B0FF");
+}
+function emailFinished(){
+  console.log("emailFinished fired");
+  setTimeout(function(){
+    $('#email-field').blur();
+    document.getElementById("email-form").reset();
+  }, 2000);
 }
 
-function emailOff(){
-   if (emailSuccess){
-      setTimeout(function(){unfocus()}, 2000);
-      emailSuccess = false;
-   } else {
-      unfocus();
-   }
-}
 function unfocus(){
-   console.log("unfocus fired");
-   $('#status-circle').animate({opacity: 0}, 100, function(){
-      $('#status-circle').css('backgroundImage', "url(/img/Submit_btn@2x.png)");
-   });
-   $('#email-field').css('borderColor', "#D5D9E1");
-   $('#email-status').html("");
+  console.log("unfocus fired");
+   // $('#status-circle').animate({opacity: 0}, 100, function(){
+   //    console.log("nonsese fired");
+   //    // $('#status-circle').removeClass();
+   // });
+  $('#status-circle').css({opacity: 0});
+  $('#status-circle').removeClass();
+  $('#email-field').removeClass();
+  $('#email-status').html("");
 }
+
+$('#status-circle').click(function(){
+  console.log("status-circle clicked");
+  $('#email-field').focus();
+  validateForm();
+  // if (emailSuccees){
+  //   $('#status-circle').css('backgroundImage', "url(/img/Success_btn@2x.png)");
+  // } else {
+  //   $('#status-circle').css('backgroundImage', "url(/img/Error_btn@2x.png)");
+  // }
+});

@@ -9,7 +9,7 @@ block page
    p FOR NEWS & UPDATES 
    form#email-form(name="emailForm", onsubmit="return validateForm();", action="", method="")
       .field-wrapper
-         input#email-field(type="email", placeholder="ENTER EMAIL ADDRESS", name="emailField", onfocus="emailFocus()" onblur="emailOff()")
+         input#email-field(type="email", placeholder="ENTER EMAIL ADDRESS", name="emailField", onfocus="emailFocus()" onblur="unfocus()")
          #status-circle
    p#email-status
    img.left-crystal(src="img/LeftCornerCrystal.png")
