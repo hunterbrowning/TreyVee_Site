@@ -4,10 +4,10 @@ function ViewModel() {
    var colorArray = ["hsl(198, 100%, 66%)", "hsl(203, 95%, 54%)", "hsl(220, 91%, 50%)", "hsl(234, 93%, 47%)"]
    var colorCounter = 0;
    var hueForward = true;
-   this.Hue = ko.observable(198);
+   this.Hue = ko.observable(190);
    // Sat & Light are not currently changing
-   self.Sat = ko.observable(100);
-   self.Light = ko.observable(70);
+   self.Sat = ko.observable(93);
+   self.Light = ko.observable(50);
 
    // this.Colorizer = ko.computed(this.someFn);
    self.Colorizer = ko.computed(function(){
@@ -21,24 +21,39 @@ function ViewModel() {
    self.hslrizer = ko.observable("hsl(198, 100%, 66%)");
 
    self.colorStepper = function(){
-      if (hueForward){
-         if (colorCounter == 3){
-            hueForward = false;
-         } else{
-            colorCounter++;
-         }
-      } else {
-         if (colorCounter == 0){
-            hueForward = true;
-         } else{
-            colorCounter--;
-         }
+      // if (hueForward){
+      //    if (colorCounter == 3){
+      //       hueForward = false;
+      //    } else{
+      //       colorCounter++;
+      //    }
+      // } else {
+      //    if (colorCounter == 0){
+      //       hueForward = true;
+      //    } else{
+      //       colorCounter--;
+      //    }
+      // }
+      // this.hslrizer(colorArray[colorCounter]);
+      var curHue = this.Hue();
+      if(curHue == 220){
+         // console.log("The Hue hit pink");
+         // self.Hue(155);
+         hueForward = false;
+      } else if(curHue == 190){
+         hueForward = true;
       }
-      this.hslrizer(colorArray[colorCounter]);
-      
+
+      if (hueForward){
+         var newHue = curHue + 1;
+         this.Hue(newHue);
+      } else {
+         var newHue = curHue - 1;
+         this.Hue(newHue);
+      }
    };
 
-   setInterval(this.colorStepper, 250);
+   setInterval(this.colorStepper, 100);
 };
 
 ko.applyBindings(ViewModel());
