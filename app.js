@@ -30,14 +30,11 @@ app.use(stylus.middleware(
   }
 ))
 
-// app.use(require('connect-assets'))
 app.use(require("connect-assets")());
 
 // for serving static file that live in the "public" directory
 app.use(express.static(__dirname + '/public'))
 
-// app.use(express.bodyParser())
-// app.use(require('connect').bodyParser());
 
 // create a route
 app.get('/', function (req, res) {
@@ -47,8 +44,8 @@ app.get('/', function (req, res) {
 })
 
 app.post('/submitEmail', function (req, res){
-  // var email = req;
-  console.log("email: " + req);
+  
+  console.log("email: " + req.body.email);
   // Connect to the db
   MongoClient.connect("mongodb://admin:webuildx369@dogen.mongohq.com:10054/xlab_site", function(err, db) {
     if(err) {
