@@ -4,6 +4,8 @@
 var express = require('express')
   , stylus = require('stylus')
   , nib = require('nib')
+// Retrieve
+var MongoClient = require('mongodb').MongoClient;
 
 var app = express()
 function compile(str, path) {
@@ -11,6 +13,7 @@ function compile(str, path) {
     .set('filename', path)
     .use(nib())
 }
+
 
 // tells express where we wan to keep the views.
 app.set('views', __dirname + '/views')
@@ -33,10 +36,28 @@ app.use(require("connect-assets")());
 // for serving static file that live in the "public" directory
 app.use(express.static(__dirname + '/public'))
 
+// app.use(express.bodyParser())
+// app.use(require('connect').bodyParser());
+
 // create a route
 app.get('/', function (req, res) {
   res.render('index',
   { title : 'Home' }
   )
+})
+
+app.post('/submitEmail', function (req, res){
+  // var email = req;
+  console.log("email: " + req);
+  // Connect to the db
+  MongoClient.connect("mongodb://admin:webuildx369@dogen.mongohq.com:10054/xlab_site", function(err, db) {
+    if(err) {
+      console.log("erorr: " + err);
+    }
+    var collection = db.collection('treyvee_emails');
+    // var doc1 = {'email':};
+    
+    // collection.insert(doc1, {w:1}, function(err, result) {});
+  });
 })
 app.listen(process.env.PORT || 3000)

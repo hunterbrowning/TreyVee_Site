@@ -22,6 +22,7 @@ function validateForm() {
     $('#email-status').css('color', "#34D290");
     $('#email-status').html("THANK YOU FOR CONNECTING WITH US!");
     $('#email-field').toggleClass('field-success');
+    document.getElementById("email-form").submit();
     emailFinished();
     return false;
   }

@@ -7,7 +7,7 @@ block page
    h3.three-v-line VALIDITY | VALUE | VICTORY
    h2.coming-line Coming Spring 2015
    p FOR NEWS & UPDATES 
-   form#email-form(name="emailForm", onsubmit="return validateForm();", action="", method="")
+   form#email-form(name="emailForm", onsubmit="return validateForm();", action="/submitEmail", method="post")
       .field-wrapper
          input#email-field(type="email", placeholder="ENTER EMAIL ADDRESS", name="emailField", onfocus="emailFocus()" onblur="unfocus()")
          #status-circle
