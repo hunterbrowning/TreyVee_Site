@@ -62,7 +62,8 @@ app.post('/submitEmail', function (req, res){
 
     var doc1 = {'email': receivedEmail};
     collection.insert(doc1, {w:1}, function(err, result) {
-      res.end('{"success" : "Updated Successfully", "status" : 200}');
+      // res.end('{"success" : "Updated Successfully", "status" : 200}');
+      res.render('index',{ title : 'Home' });
     });
   });
 })
