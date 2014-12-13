@@ -32,6 +32,11 @@ app.use(stylus.middleware(
 
 app.use(require("connect-assets")());
 
+var bodyParser = require('body-parser');
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 // for serving static file that live in the "public" directory
 app.use(express.static(__dirname + '/public'))
 
@@ -44,17 +49,21 @@ app.get('/', function (req, res) {
 })
 
 app.post('/submitEmail', function (req, res){
+
+  var receivedEmail = req.body.emailField;
   
-  console.log("email: " + req.body.email);
+  // console.log("email: " + req.body.emailField);
   // Connect to the db
   MongoClient.connect("mongodb://admin:webuildx369@dogen.mongohq.com:10054/xlab_site", function(err, db) {
     if(err) {
       console.log("erorr: " + err);
     }
     var collection = db.collection('treyvee_emails');
-    // var doc1 = {'email':};
-    
-    // collection.insert(doc1, {w:1}, function(err, result) {});
+
+    var doc1 = {'email': receivedEmail};
+    collection.insert(doc1, {w:1}, function(err, result) {
+      res.end('{"success" : "Updated Successfully", "status" : 200}');
+    });
   });
 })
 app.listen(process.env.PORT || 3000)
